@@ -1,0 +1,72 @@
+/* App-specific styles */
+.app-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fef7ee 0%, #f0f9ff 100%);
+}
+
+.recipe-card-container {
+  perspective: 1000px;
+}
+
+.recipe-card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease;
+}
+
+.recipe-card-3d:hover {
+  transform: rotateY(5deg) rotateX(5deg);
+}
+
+.swipe-gesture-area {
+  touch-action: pan-y pinch-zoom;
+}
+
+.ingredient-tag {
+  background: linear-gradient(135deg, #fef7ee 0%, #fad7ac 100%);
+  border: 1px solid #f6bb77;
+}
+
+.nutrition-chart {
+  background: linear-gradient(135deg, #f0f9ff 0%, #bae6fd 100%);
+}
+
+.loading-spinner {
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #ed7a1a;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.slide-in-left {
+  animation: slideInLeft 0.3s ease-out;
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
