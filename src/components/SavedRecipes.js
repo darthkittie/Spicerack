@@ -149,15 +149,27 @@ const SavedRecipes = () => {
               {/* Recipe Image */}
               <div className="relative h-48 bg-gradient-to-br from-red-100 to-red-200 overflow-hidden">
                 {recipe.image_url ? (
-                  <img
-                    src={recipe.image_url}
-                    alt={recipe.title}
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
+                  <a
+                    href={recipe.source_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full h-full hover:opacity-90 transition-opacity cursor-pointer"
+                    title="Click to view original recipe"
+                  >
+                    <img
+                      src={recipe.image_url}
+                      alt={recipe.title}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        if (e.target && e.target.style) {
+                          e.target.style.display = 'none';
+                        }
+                        if (e.target && e.target.nextSibling && e.target.nextSibling.style) {
+                          e.target.nextSibling.style.display = 'flex';
+                        }
+                      }}
+                    />
+                  </a>
                 ) : null}
                 <div className="absolute inset-0 bg-gradient-to-br from-red-100 to-red-200 flex items-center justify-center">
                   <div className="text-center text-red-600">
@@ -176,9 +188,29 @@ const SavedRecipes = () => {
 
               {/* Recipe Content */}
               <div className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
-                  {recipe.title}
-                </h3>
+                <div className="mb-3">
+                  {recipe.source_url ? (
+                    <a
+                      href={recipe.source_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group block"
+                      title="Click to view original recipe"
+                    >
+                      <h3 className="text-lg font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors cursor-pointer">
+                        {recipe.title}
+                      </h3>
+                      <div className="flex items-center space-x-2 mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <ExternalLink className="h-3 w-3 text-blue-500" />
+                        <span className="text-xs text-blue-500 font-medium">View Original Recipe</span>
+                      </div>
+                    </a>
+                  ) : (
+                    <h3 className="text-lg font-bold text-gray-900 line-clamp-2">
+                      {recipe.title}
+                    </h3>
+                  )}
+                </div>
 
                 {/* Quick Stats */}
                 <div className="flex items-center justify-between mb-4 text-sm text-gray-600">

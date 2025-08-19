@@ -87,11 +87,16 @@ export const RecipeProvider = ({ children }) => {
   // API functions
   const scrapeRecipes = async (query, maxRecipes = 10) => {
     try {
+      if (!query || query.trim() === '') {
+        dispatch({ type: 'SET_ERROR', payload: 'Please enter a search term' });
+        return;
+      }
+      
       dispatch({ type: 'SET_LOADING', payload: true });
       dispatch({ type: 'SET_ERROR', payload: null });
       
       const response = await axios.post('/api/scrape-recipes', {
-        query: query || 'chicken recipes',
+        query: query.trim(),
         max_recipes: maxRecipes
       });
       

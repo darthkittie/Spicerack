@@ -82,15 +82,27 @@ const RecipeDetail = () => {
         {/* Hero Image */}
         <div className="relative h-80 bg-gradient-to-br from-primary-100 to-primary-200 overflow-hidden">
           {recipe.image_url ? (
-            <img
-              src={recipe.image_url}
-              alt={recipe.title}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                e.target.style.display = 'none';
-                e.target.nextSibling.style.display = 'flex';
-              }}
-            />
+            <a
+              href={recipe.source_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full h-full hover:opacity-90 transition-opacity cursor-pointer"
+              title="Click to view original recipe"
+            >
+              <img
+                src={recipe.image_url}
+                alt={recipe.title}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  if (e.target && e.target.style) {
+                    e.target.style.display = 'none';
+                  }
+                  if (e.target && e.target.nextSibling && e.target.nextSibling.style) {
+                    e.target.nextSibling.style.display = 'flex';
+                  }
+                }}
+              />
+            </a>
           ) : null}
           <div className="absolute inset-0 bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
             <div className="text-center text-primary-600">
@@ -99,23 +111,48 @@ const RecipeDetail = () => {
             </div>
           </div>
           
-          {/* Action Buttons Overlay */}
-          <div className="absolute top-4 right-4 flex space-x-2">
-            <button
-              onClick={() => setShowSaveForm(true)}
-              className="p-3 bg-white/90 backdrop-blur rounded-full hover:bg-white transition-colors"
-            >
-              <Heart className="h-5 w-5 text-red-500" />
-            </button>
-            <button className="p-3 bg-white/90 backdrop-blur rounded-full hover:bg-white transition-colors">
-              <Share2 className="h-5 w-5 text-gray-600" />
-            </button>
-          </div>
+          {/* Source Link Overlay */}
+          {recipe.source_url && (
+            <div className="absolute top-4 right-4">
+              <a
+                href={recipe.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-white/90 hover:bg-white text-gray-700 hover:text-primary-600 p-2 rounded-lg transition-all hover:scale-110 shadow-lg"
+                title="View original recipe"
+              >
+                <ExternalLink className="h-5 w-5" />
+              </a>
+            </div>
+          )}
         </div>
 
         {/* Recipe Info */}
-        <div className="p-6">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{recipe.title}</h1>
+        <div className="p-8">
+          {/* Title */}
+          <div className="mb-6">
+            {recipe.source_url ? (
+              <a
+                href={recipe.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+                title="Click to view original recipe"
+              >
+                <h1 className="text-4xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors cursor-pointer">
+                  {recipe.title}
+                </h1>
+                <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ExternalLink className="h-4 w-4 text-primary-500" />
+                  <span className="text-sm text-primary-500 font-medium">View Original Recipe</span>
+                </div>
+              </a>
+            ) : (
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                {recipe.title}
+              </h1>
+            )}
+          </div>
           
           {/* Quick Stats */}
           <div className="flex items-center space-x-6 mb-6">
@@ -150,6 +187,19 @@ const RecipeDetail = () => {
 
           {/* Action Buttons */}
           <div className="flex space-x-4">
+            {recipe.source_url && (
+              <a
+                href={recipe.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
+                title="Visit the original recipe website"
+              >
+                <ExternalLink className="h-5 w-5" />
+                <span>View Original</span>
+              </a>
+            )}
+            
             <button
               onClick={() => setShowInstacartModal(true)}
               className="flex items-center space-x-2 px-6 py-3 bg-secondary-500 hover:bg-secondary-600 text-white rounded-lg font-medium transition-colors"
@@ -246,6 +296,28 @@ const RecipeDetail = () => {
                   <p className="text-3xl font-bold text-purple-600">{nutrition.sugar || 0}g</p>
                   <p className="text-sm text-purple-700">Sugar</p>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* View Original Recipe Button */}
+          {recipe.source_url && (
+            <div className="bg-white rounded-2xl shadow-lg p-6">
+              <div className="text-center">
+                <h2 className="text-xl font-bold text-gray-900 mb-4">Want More Details?</h2>
+                <p className="text-gray-600 mb-6">
+                  Visit the original recipe website for additional information, reviews, and cooking tips.
+                </p>
+                <a
+                  href={recipe.source_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center space-x-2 px-8 py-4 bg-primary-500 hover:bg-primary-600 text-white rounded-lg font-medium transition-all hover:scale-105 shadow-lg"
+                  title="Visit the original recipe website"
+                >
+                  <ExternalLink className="h-5 w-5" />
+                  <span>View Original Recipe</span>
+                </a>
               </div>
             </div>
           )}

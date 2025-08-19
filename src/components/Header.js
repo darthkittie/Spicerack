@@ -18,7 +18,7 @@ const Header = ({ currentView, setCurrentView }) => {
               <ChefHat className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-gray-900">Recipe Tracker</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Spicerack</h1>
               <p className="text-sm text-gray-600">Discover • Swipe • Cook</p>
             </div>
           </div>

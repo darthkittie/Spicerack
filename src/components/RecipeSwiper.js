@@ -121,7 +121,7 @@ const RecipeSwiper = () => {
           <div className="mt-6">
             <p className="text-sm text-gray-500 mb-3">Popular searches:</p>
             <div className="flex flex-wrap gap-2 justify-center">
-              {['chicken recipes', 'pasta dishes', 'vegetarian meals', 'quick dinner'].map((term) => (
+              {['pasta dishes', 'vegetarian meals', 'quick dinner', 'beef recipes', 'seafood dishes', 'desserts'].map((term) => (
                 <button
                   key={term}
                   onClick={() => {

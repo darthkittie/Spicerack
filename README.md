@@ -1,4 +1,4 @@
-# Recipe Tracker 🍽️
+# Spicerack 🍽️
 
 A comprehensive recipe discovery and management application with web scraping, swipe gestures, ingredient tracking, and Instacart integration.
 
